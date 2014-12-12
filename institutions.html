@@ -1,0 +1,144 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>P-Stem</title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- start plugins -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!----font-Awesome----->
+   	<link rel="stylesheet" href="fonts/css/font-awesome.min.css">
+<!----font-Awesome----->
+</head>
+<body>
+<div class="header_bg1">
+<div class="container">
+	<div class="row header">
+		<div class="logo navbar-left">
+			<a href="index.html"><img src="images/logo.png" width="200px" /> </a>
+		</div>
+		<div class="col-md-3 navbar-right">
+			<form>
+				
+				<input type="submit" value="Sign In" class="btn btn-default">
+                <input type="submit" value="Register" class="btn btn-success">
+			</form>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="row h_menu">
+		<nav class="navbar navbar-default navbar-left" role="navigation">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		    </div>
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li><a href="index.html">home</a></li>
+		        <li><a href="about.html">about us</a></li>
+		        <li  class="active"><a href="institutions.html">institutions</a></li>
+		        <li><a href="events.html">events</a></li>
+                <li><a href="careers.html">careers</a></li>
+                <li><a href="contact.html">contact</a></li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		    <!-- start soc_icons -->
+		</nav>
+		<div class="soc_icons navbar-right">
+			<ul class="list-unstyled text-center">
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+			</ul>	
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</div>
+<div class="main_bg"><!-- start main -->
+	<div class="container">
+		<div class="about details row">
+			<h2>iNSTITUTIONS</h2>
+			<table style="width:100%">
+				<thead>
+					<tr>
+						<td><h4>INSTITUTION NAME</h4></td>
+					<tr>					
+				</thead>
+				<tbody id="content">
+					
+				</tbody>
+			
+			</table>
+			<br/>
+			<table style="width:100%; display:none;" id="other">
+				<thead>
+					<tr>
+						<td><h5>EMAIL ADDRESS</h5></td>
+						<td><h5>CONTACT DETAILS</h5></td>
+						<td><h5>POSTAL ADDRESS</h5></td>
+					<tr>
+				</thead>
+				<tbody>
+					<tr id="contact"> </tr>
+				</tbody>			
+			</table>
+		</div>
+	</div>
+</div><!-- end main -->
+
+	<script>
+        $(document).ready(function(){
+            
+            $.post('functions/work.php', 'action=institutions', function(ret) {
+                console.log(ret);
+                $.each(ret, function(index, val) {                    
+                    console.log(val);
+                    $('#content').append('<tr><td><a id="iInfo" data-id="'+val.id+'">'+val.name+'</a></td></tr>')
+                });
+
+            },'json');
+
+            $(document).on('click','#iInfo',function(){
+                $('.contact').remove();
+                $('#other').show();
+                var iid = $(this).attr('data-id');
+                $.post('functions/work.php', 'action=institution&id='+iid, function(ret) {
+                    console.log(ret);
+                    $.each(ret, function(index, val) {                        
+                        //console.log(val);
+                        $('#contact').append('<td class="contact">'+val+'</td>')
+                    });
+
+                },'json');
+            });
+
+            
+        });
+    </script>
+</body>
+</html>
